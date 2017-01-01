@@ -2,9 +2,23 @@
   {{title}}
 </h1>
 
+<!--<ul>-->
+  <!--<li class="text" *ngFor="let item of items | async">-->
+    <!--{{item.name}}-->
+
+  <!--</li>-->
+<!--</ul>-->
+<hr/>
 <ul>
-  <li class="text" *ngFor="let item of items | async">
-    {{item | json }}
+  <li class="text" *ngFor="let business of businesses">
+    {{business.name}}
+
+  </li>
+</ul>
+<hr/>
+<ul>
+  <li class="text" *ngFor="let category of categories">
+    {{category.name}}
 
   </li>
 </ul>
