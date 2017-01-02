@@ -20,10 +20,21 @@ export class FirebaseService {
     return this.af.database.list('/items/items');
   }
 
-  getBusinesses(){
+  getBusinesses(category:string=null){
+    if(category){
+      this.businesses = this.af.database.list('/businesses',{
+        query:{
+          orderByChild:'categories'
+        }
+      }) as FirebaseListObservable<Business[]>;
+    }else{
+
     // console.log(this.af.database.list('/businesses'));
     this.businesses = this.af.database.list('/businesses') as FirebaseListObservable<Business[]>;
+    }
+
     return this.businesses;
+
   }
 
   getCategories(){
