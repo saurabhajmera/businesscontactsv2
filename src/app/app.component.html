@@ -1,113 +1,123 @@
-
-
 <!--<ul>-->
-  <!--<li class="text" *ngFor="let item of items | async">-->
-    <!--{{item.name}}-->
+<!--<li class="text" *ngFor="let item of items | async">-->
+<!--{{item.name}}-->
 
-  <!--</li>-->
+<!--</li>-->
 <!--</ul>-->
 <!--<hr/>-->
 <!--<ul>-->
-  <!--<li class="text" *ngFor="let business of businesses">-->
-    <!--{{business.name}}-->
+<!--<li class="text" *ngFor="let business of businesses">-->
+<!--{{business.name}}-->
 
-  <!--</li>-->
+<!--</li>-->
 <!--</ul>-->
 <!--<hr/>-->
 <!--<ul>-->
-  <!--<li class="text" *ngFor="let category of categories">-->
-    <!--{{category.name}}-->
+<!--<li class="text" *ngFor="let category of categories">-->
+<!--{{category.name}}-->
 
-  <!--</li>-->
+<!--</li>-->
 <!--</ul>-->
 
 <div class="top-bar">
-  <div class="row">
-    <div class="top-bar-left">
-      <ul class="menu">
-        <li class="menu-text">
-          BusinessContacts
-        </li>
-      </ul>
-      <div class="top-bar-right">
+    <div class="row">
+        <div class="top-bar-left">
+            <ul class="menu">
+                <li class="menu-text">
+                    BusinessContacts
+                </li>
+            </ul>
+            <div class="top-bar-right">
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 <br>
 <div class="row">
-  <div class="large-6 columns">
-    <button class="button">Add Business</button>
-  </div>
-  <div class="large-1 columns">
-    <h4 style="float: right">Filter:</h4>
-  </div>
-  <div class="large-5 columns">
-   <select (change)="filterByCategory(categoryFilter.value)" #categoryFilter>
-        <option value="0">Select</option>
-        <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
-
-    </select>
-  </div>
-</div>
-<div *ngIf="appState === 'expand'">
-  <div class="row">
-  <div class="large-12 columns">
-    <p>
-      More Details Below:
-    </p>
-    <div *ngFor="let business of businesses">
-      <div *ngIf="business.$key===activeKey">
-        <div class="row">
-          <div class="large-5 columns large-offset-1">
-            <h3>{{business.name}}</h3>
-            <p>Address: {{business.full_address}}</p>
-            <p>Hours:{{business.hours | json}}</p>
-            <p>Starts:{{business.stars}}</p>
-            <p>Neighbourhoods:<span *ngFor="let n of business.neighborhoods"><span class="label">{{n}}</span></span> </p>
-            <p>Reviews:{{business.review_count}}</p>
-          </div>
+    <div class="large-6 columns">
+        <div *ngIf="appState === 'default'">
+            <button class="button" (click)="changeState('add')">Add Business</button>
         </div>
-      </div>
     </div>
-    <button (click)="changeState('default')" class="button alert">Back..</button>
-  </div>
-  </div>
+
+    <div class="large-1 columns">
+        <h4 style="float: right">Filter:</h4>
+    </div>
+    <div class="large-5 columns">
+        <select (change)="filterByCategory(categoryFilter.value)" #categoryFilter>
+            <option value="0">Select</option>
+            <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
+
+        </select>
+    </div>
+</div>
+<div *ngIf="appState === 'add'" class="row">
+    <div class="large-12 columns">
+        <app-add-business></app-add-business>
+        <button (click)="changeState('default')" class="button alert">Back..</button>
+    </div>
+
+</div>
+
+<div *ngIf="appState === 'expand'">
+    <div class="row">
+        <div class="large-12 columns">
+            <p>
+                More Details Below:
+            </p>
+            <div *ngFor="let business of businesses">
+                <div *ngIf="business.$key===activeKey">
+                    <div class="row">
+                        <div class="large-5 columns large-offset-1">
+                            <h3>{{business.name}}</h3>
+                            <p>Address: {{business.full_address}}</p>
+                            <p>Hours:{{business.hours | json}}</p>
+                            <p>Starts:{{business.stars}}</p>
+                            <p>Neighbourhoods:<span *ngFor="let n of business.neighborhoods"><span
+                                    class="label">{{n}}</span></span></p>
+                            <p>Reviews:{{business.review_count}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button (click)="changeState('default')" class="button alert">Back..</button>
+        </div>
+    </div>
 </div>
 
 <div class="row">
-  <div class="large-12 columns">
-    <div *ngIf=businesses>
-      <table class="table">
-        <thead>
-        <th>Company</th>
-        <th>Categories</th>
-        <th>Full Address</th>
-        </thead>
-        <tbody *ngFor="let business of businesses">
-          <td>{{business.name}}</td>
-          <td>
+    <div class="large-12 columns">
+        <div *ngIf=businesses>
+            <table class="table">
+                <thead>
+                <th>Company</th>
+                <th>Categories</th>
+                <th>Full Address</th>
+                </thead>
+                <tbody *ngFor="let business of businesses">
+                <td>{{business.name}}</td>
+                <td>
 
             <span *ngFor="let category of business.categories">
               <span class="label">{{category}}</span>
             </span>
-          </td>
-          <td>
-            {{business.full_address}}
-          </td>
-        <td>
+                </td>
+                <td>
+                    {{business.full_address}}
+                </td>
+                <td>
           <span>
           <button class="button" (click)="changeState('expand',business.$key)">More..</button>
           <button class="button secondary">Edit</button>
           <button class="button alert">Delete</button>
           </span>
-        </td>
+                </td>
 
-        </tbody>
-      </table>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-  </div>
 </div>
 

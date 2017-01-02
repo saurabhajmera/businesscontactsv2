@@ -1,0 +1,28 @@
+<h3>Add section</h3>
+<form (ngSubmit)="addBusiness($event)" [formGroup]="addBusinessForm">
+    <div class="row">
+        <div class="large-6 columns">
+            <label>Business Name
+                <input required formControlName="businessName" type="text" placeholder="Your legal name"></label>
+        </div>
+        <div class="large-6 columns">
+            <label>Categories
+                <select required formControlName="category">
+                    <option value="0">Select</option>
+                    <option *ngFor="let category of categories" value="{{category.name}}">{{category.name}}</option>
+
+                </select>
+            </label>
+
+        </div>
+    </div>
+    <div class="row">
+        <button type="submit" class="button default">Create</button>
+    </div>
+
+</form>
+<!--<form [ngFormModel]="loginForm" (ngSubmit)="doLogin($event)">-->
+<!--<input formControlName="email" type="email" placeholder="Your email">-->
+<!--<input formControlName="password" type="password" placeholder="Your password">-->
+<!--<button type="submit">Log in</button>-->
+<!--</form>-->

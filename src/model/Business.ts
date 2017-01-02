@@ -1,4 +1,4 @@
-export interface Business{
+export class Business{
   $key?:string;
   business_id: string;
   full_address: string;
