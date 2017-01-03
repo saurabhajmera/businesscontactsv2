@@ -3,28 +3,34 @@ import {FirebaseListObservable} from "angularfire2";
 import {FirebaseService} from "./firebase.service";
 import {Business} from "../model/Business";
 import {Category} from "../model/Category";
+import {ApplicationStateService} from "./application-state.service";
+import {ActiveBusinessService} from "./active-business.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers:[FirebaseService]
+  providers:[FirebaseService,ApplicationStateService,ActiveBusinessService]
 })
 export class AppComponent extends OnInit{
   items: FirebaseListObservable<any[]>;
   businesses: Array<Business>;
   categories: Array<Category>;
-  appState:string;
+
   activeKey:any;
 
   title = 'app works!';
 
-  constructor(private _fbSerivce:FirebaseService){
+  constructor(
+      private _fbSerivce:FirebaseService,
+      private _appStateService:ApplicationStateService,
+      private _activeBusinessService:ActiveBusinessService
+  ){
     super();
   }
 
   ngOnInit(): void {
-    this.appState='default';
+    this._appStateService.appState='default';
     console.log(this._fbSerivce.getWelcomeMessage());
     this.items = this._fbSerivce.getItems();
 
@@ -41,14 +47,22 @@ export class AppComponent extends OnInit{
 
   }
 
-  changeState(state,key){
-    console.log("Application state is:"+this.appState);
-    this.appState = state;
-    if(key){
-      console.log("Keys is:"+key+" Application state is:"+this.appState);
+  changeState(state, key, business: Business) {
+    this._appStateService.appState = state;
+    if (business) {
+      // console.log(business);
+      this._activeBusinessService.activeBusiness=business;
     }
-    this.activeKey=key;
+
+    if (key) {
+      console.log("Keys is:" + key + " Application state is:" + this._appStateService.appState);
+      this.activeKey = key;
+      this._activeBusinessService.activeKey=key;
+
+    }
+
   }
+
 
   filterByCategory(categoryFilterValue){
     this._fbSerivce.getBusinesses(categoryFilterValue).subscribe(resBusinesses =>{

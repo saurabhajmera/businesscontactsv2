@@ -1,24 +1,3 @@
-<!--<ul>-->
-<!--<li class="text" *ngFor="let item of items | async">-->
-<!--{{item.name}}-->
-
-<!--</li>-->
-<!--</ul>-->
-<!--<hr/>-->
-<!--<ul>-->
-<!--<li class="text" *ngFor="let business of businesses">-->
-<!--{{business.name}}-->
-
-<!--</li>-->
-<!--</ul>-->
-<!--<hr/>-->
-<!--<ul>-->
-<!--<li class="text" *ngFor="let category of categories">-->
-<!--{{category.name}}-->
-
-<!--</li>-->
-<!--</ul>-->
-
 <div class="top-bar">
     <div class="row">
         <div class="top-bar-left">
@@ -36,8 +15,8 @@
 <br>
 <div class="row">
     <div class="large-6 columns">
-        <div *ngIf="appState === 'default'">
-            <button class="button" (click)="changeState('add')">Add Business</button>
+        <div *ngIf="this._appStateService.appState === 'default'">
+            <button class="button" (click)="changeState('add',null,null)">Add Business</button>
         </div>
     </div>
 
@@ -52,15 +31,23 @@
         </select>
     </div>
 </div>
-<div *ngIf="appState === 'add'" class="row">
+<div *ngIf="this._appStateService.appState === 'add'" class="row">
     <div class="large-12 columns">
         <app-add-business></app-add-business>
-        <button (click)="changeState('default')" class="button alert">Back..</button>
+        <button (click)="changeState('default',null,null)" class="button alert">Back..</button>
     </div>
 
 </div>
 
-<div *ngIf="appState === 'expand'">
+
+<div *ngIf="this._appStateService.appState === 'edit'" class="row">
+    <div class="large-12 columns">
+        <app-edit-business></app-edit-business>
+        <button (click)="changeState('default',null,null)" class="button alert">Cancel</button>
+    </div>
+</div>
+
+<div *ngIf="this._appStateService.appState === 'expand'">
     <div class="row">
         <div class="large-12 columns">
             <p>
@@ -81,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <button (click)="changeState('default')" class="button alert">Back..</button>
+            <button (click)="changeState('default',null,null)" class="button alert">Back..</button>
         </div>
     </div>
 </div>
@@ -108,8 +95,8 @@
                 </td>
                 <td>
           <span>
-          <button class="button" (click)="changeState('expand',business.$key)">More..</button>
-          <button class="button secondary">Edit</button>
+          <button class="button" (click)="changeState('expand',business.$key,null)">More..</button>
+          <button class="button secondary" (click)="changeState('edit',business.$key,business)">Edit</button>
           <button class="button alert">Delete</button>
           </span>
                 </td>

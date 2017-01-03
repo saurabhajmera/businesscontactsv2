@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import {AngularFireModule} from "angularfire2";
 import { AddBusinessComponent } from './add-business/add-business.component';
+import { EditBusinessComponent } from './edit-business/edit-business.component';
 
 
 //Must export the firebase config
@@ -20,7 +21,8 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    AddBusinessComponent
+    AddBusinessComponent,
+    EditBusinessComponent
   ],
   imports: [
     BrowserModule,

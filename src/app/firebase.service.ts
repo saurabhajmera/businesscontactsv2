@@ -42,4 +42,13 @@ export class FirebaseService {
     return this.categories;
   }
 
+  addBusiness(newBusiness: Business) {
+    // console.log(JSON.stringify(newBusiness));
+    this.businesses.push(newBusiness);
+
+  }
+
+  updateBusiness(key:any,activeBusiness: Business) {
+    this.businesses.update(key,activeBusiness);
+  }
 }
