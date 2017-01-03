@@ -57,12 +57,16 @@ export class EditBusinessComponent implements OnInit {
   }
 
   private setAttribute(attributes: any, attribute: string) {
-    for(let a of attributes){
-      if(a === attribute){
+    if (attribute && attributes) {
+
+    for (let a of attributes) {
+      if (a === attribute) {
         return true;
       }
     }
+  }
     return false;
+
   }
 
   ngOnInit() {

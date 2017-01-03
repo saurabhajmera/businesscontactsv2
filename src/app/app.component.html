@@ -97,7 +97,7 @@
           <span>
           <button class="button" (click)="changeState('expand',business.$key,null)">More..</button>
           <button class="button secondary" (click)="changeState('edit',business.$key,business)">Edit</button>
-          <button class="button alert">Delete</button>
+          <button class="button alert" (click)="deleteBusiness(business.$key)">Delete</button>
           </span>
                 </td>
 

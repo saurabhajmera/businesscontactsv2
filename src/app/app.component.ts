@@ -81,4 +81,11 @@ export class AppComponent extends OnInit{
     });
   }
 
+  deleteBusiness(key){
+    this._fbSerivce.deleteBusiness(key);
+
+    this.changeState('default',null,null)
+
+  }
+
 }
